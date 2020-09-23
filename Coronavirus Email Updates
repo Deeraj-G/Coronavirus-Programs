@@ -2,24 +2,31 @@ import pandas as pd
 import smtplib
 from email.mime.text import MIMEText
 
-covid_data= pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-17-2020.csv')
-covid_data['Active'] = covid_data['Confirmed'] - covid_data['Deaths'] - covid_data['Recovered']
-result = covid_data.groupby('Country/Region')['Confirmed', 'Deaths', 'Recovered', 'Active'].sum().reset_index()
-covidresult = str(result)
+class email_update:
 
-smtp_ssl_host = 'smtp.gmail.com'
-smtp_ssl_port = 465
-username = ('EMAIL@EXAMPLE.COM')
-password = ('PASSWORD')
-sender = ('EMAIL@EXAMPLE.COM')
-targets = ['TARGET_EMAIL@EXAMPLE.COM']
+  def update():
+    covid_data= pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-17-2020.csv')
+    covid_data['Active'] = covid_data['Confirmed'] - covid_data['Deaths'] - covid_data['Recovered']
+    result = covid_data.groupby('Country/Region')['Confirmed', 'Deaths', 'Recovered', 'Active'].sum().reset_index()
+    covidresult = str(result)
+    
+  def emails(self):
+    pass
+    update()
+    
+    smtp_ssl_host = 'smtp.gmail.com'
+    smtp_ssl_port = 465
+    username = ('EMAIL@EXAMPLE.COM') #You must enable "less secure app access" to bypass google security alerts for whichever email you use. Without it, this program will run into a SMTPAuthenticationError
+    password = ('PASSWORD')
+    sender = ('EMAIL@EXAMPLE.COM')
+    targets = ['TARGET_EMAIL@EXAMPLE.COM']
 
-msg = MIMEText(covidresult)
-msg['Subject'] = 'Covid Update' 
-msg['From'] = sender
-msg['To'] = ', '.join(targets)
+    msg = MIMEText(covidresult)
+    msg['Subject'] = 'Covid Update' 
+    msg['From'] = sender
+    msg['To'] = ', '.join(targets)
 
-server = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
-server.login(username, password)
-server.sendmail(sender, targets, msg.as_string())
-server.quit()
+    server = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
+    server.login(username, password)
+    server.sendmail(sender, targets, msg.as_string())
+    server.quit()
