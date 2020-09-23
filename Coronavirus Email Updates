@@ -16,7 +16,7 @@ class email_update:
     
     smtp_ssl_host = 'smtp.gmail.com'
     smtp_ssl_port = 465
-    username = ('EMAIL@EXAMPLE.COM') #You must enable "less secure app access" to bypass google security alerts for whichever email you use. Without it, this program will run into a SMTPAuthenticationError
+    username = ('EMAIL@EXAMPLE.COM')
     password = ('PASSWORD')
     sender = ('EMAIL@EXAMPLE.COM')
     targets = ['TARGET_EMAIL@EXAMPLE.COM']
